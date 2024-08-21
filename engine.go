@@ -98,17 +98,17 @@ func addTags(m *Move, pos *Position) {
 	// determine if in check after move (makes move invalid)
 	cp := pos.copy()
 	cp.board.update(m)
-	if isInCheck(cp) {
+	if IsInCheck(cp) {
 		m.addTag(inCheck)
 	}
 	// determine if opponent in check after move
 	cp.turn = cp.turn.Other()
-	if isInCheck(cp) {
+	if IsInCheck(cp) {
 		m.addTag(Check)
 	}
 }
 
-func isInCheck(pos *Position) bool {
+func IsInCheck(pos *Position) bool {
 	kingSq := pos.board.whiteKingSq
 	if pos.Turn() == Black {
 		kingSq = pos.board.blackKingSq
@@ -200,7 +200,7 @@ func bbForPossibleMoves(pos *Position, pt PieceType, sq Square) bitboard {
 	return bitboard(0)
 }
 
-// TODO can calc isInCheck twice
+// TODO can calc IsInCheck twice
 func castleMoves(pos *Position) []*Move {
 	moves := []*Move{}
 	kingSide := pos.castleRights.CanCastle(pos.Turn(), KingSide)

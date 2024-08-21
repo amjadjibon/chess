@@ -106,7 +106,7 @@ func FEN(fen string) (func(*Game), error) {
 		return nil, err
 	}
 	return func(g *Game) {
-		pos.inCheck = isInCheck(pos)
+		pos.inCheck = IsInCheck(pos)
 		g.pos = pos
 		g.positions = []*Position{pos}
 		g.updatePosition()
@@ -268,11 +268,16 @@ func (g *Game) Draw(method Method) error {
 	switch method {
 	case ThreefoldRepetition:
 		if g.numOfRepetitions() < 3 {
-			return errors.New("chess: draw by ThreefoldRepetition requires at least three repetitions of the current board state")
+			return errors.New(
+				"chess: draw by ThreefoldRepetition requires at least three repetitions of the current board state",
+			)
 		}
 	case FiftyMoveRule:
 		if g.pos.halfMoveClock < 100 {
-			return fmt.Errorf("chess: draw by FiftyMoveRule requires the half move clock to be at 100 or greater but is %d", g.pos.halfMoveClock)
+			return fmt.Errorf(
+				"chess: draw by FiftyMoveRule requires the half move clock to be at 100 or greater but is %d",
+				g.pos.halfMoveClock,
+			)
 		}
 	case DrawOffer:
 	default:

@@ -173,7 +173,7 @@ func (pos *Position) UnmarshalText(text []byte) error {
 	pos.enPassantSquare = cp.enPassantSquare
 	pos.halfMoveClock = cp.halfMoveClock
 	pos.moveCount = cp.moveCount
-	pos.inCheck = isInCheck(cp)
+	pos.inCheck = IsInCheck(cp)
 	return nil
 }
 
@@ -278,7 +278,7 @@ func (pos *Position) UnmarshalBinary(data []byte) error {
 	if b&bitsHasEnPassant == 0 {
 		pos.enPassantSquare = NoSquare
 	}
-	pos.inCheck = isInCheck(pos)
+	pos.inCheck = IsInCheck(pos)
 	return nil
 }
 
